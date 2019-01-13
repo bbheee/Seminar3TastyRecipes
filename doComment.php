@@ -9,18 +9,19 @@ require_once $file_to_include;
 //require_once 'classes/Tasty/Util/Startup.php';
 
 Startup::initiate();
+if(!empty($_POST['comment'])){
+  $comment = $_POST['comment'];
+  $mypage = $_SESSION['page'];
 
-$comment = $_POST['comment'];
-$mypage = $_SESSION['page'];
-
-if(ctype_print($comment) && ctype_print($mypage)){
-  $controller = SessionManager::getController();
-  $username = $_SESSION['loginuser'];
-  if ($controller->addComment($username, $comment, $mypage)){
-    header("location: $mypage.php");
+  if(ctype_print($comment) && ctype_print($mypage)){
+    $controller = SessionManager::getController();
+    $username = $_SESSION['loginuser'];
+    if ($controller->addComment($username, $comment, $mypage)){
+      header("location: $mypage.php");
+    }
   }
-}
-else{
-  die("Error: Please put a valid comment!");
+  else{
+    die("Error: Please put a valid comment!");
+  }
 }
 ?>
